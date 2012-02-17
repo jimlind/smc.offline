@@ -4,6 +4,7 @@ var $scraper = "smcScrape.php";	// Scraper PHP Location
 $(document).ready(function() {
 	$("#userForm").submit(function(event) {
 		event.preventDefault();
+		//TODO: Don't allow submission with empty username
 		var $url = "publicview.asp?username=" + $("#userInput").val();
 		$('#userForm').remove(); // Remove the form.
 		
