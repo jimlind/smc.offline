@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="js/zepto.min.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+	    var $ul = $("#theBigList");
+	    console.log($ul);
+	    var $db = openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*1024);
+	    $db.transaction(function ($tx) {
+		var $query = "SELECT series.title, issue.issueNumber AS number, series.publisher, issue.published";
+		    $query += " FROM issue, series WHERE issue.seriesID = series.seriesID";
+		$tx.executeSql($query, [], function ($tx, $results) {
+		    var $length = $results.rows.length;
+		    for(var $i = 0; $i < $length; $i++) {
+			var $item = $results.rows.item($i);
+			var $text = $item.title + " : " + $item.number + " : " + $item.publisher+ " (" + $item.published + ")";
+			var $li = $('<li />').html($text);
+			$ul.append($li);
+		    }
+		});
+	    });
+	});
+    </script>
+</head>
+<body>
+    <ul id="theBigList">
+    </ul>
+</body>
