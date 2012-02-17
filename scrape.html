@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/scrape.js"></script>
+    <style type="text/css"> 
+	html, body {
+	    background-color: #000;
+	    border:0;
+	    height:100%;
+	    overflow:hidden;
+	    margin:0;
+	    padding:0;
+	    
+	    font-family: courier, monospace;
+	    font-size:14px;
+	    color: #0f0;
+	}
+	#content {
+	    width:600px;
+	    margin-left:auto;
+	    margin-right:auto;
+	    height:100%;
+	    position:relative;
+	}
+	#console {
+	    position: absolute;
+	    bottom:20px;
+	    top:20px;
+	    left:0px;
+	    right:0px;
+	    overflow:auto;
+	}
+	#console p {
+	    padding:1px 0px;
+	    margin:0px;
+	    height:16px;
+	    overflow:hidden;
+	}
+	
+	form {
+	    color:#fff;
+	    text-align:center;
+	}
+	form label {
+	    font-size:16px;
+	    font-weight:bold;
+	}
+	form input {
+	    background-color: #fff;
+	    border:2px solid #fff;
+	    border-radius: 4px;
+	    color: #000;
+	    font-size:14px;
+	}
+	form input.submit{
+	    background-color: #666;
+	    color:#fff;
+	    font-weight:bold;
+	}
+</style> 
+    
+</head>
+<body>
+    <div id="content">
+    <div id="console" style="display:block;">
+	<form id="userForm">
+	    <label for="user">User:</label>
+	    <!-- achris162000 HAS LOTS OF STASHES WITH LOTS OF SERIES -->
+	    <!-- 61971levy HAS TWO PAGES OF SERIES IN A STASH -->
+	    <!-- TODO: SET COOKIE ON SUBMIT -->
+	    <input id="userInput" name="user" type="text" value=""/> 
+	    <input class="submit" type="submit"/>
+	</form>
+    </div>
+    </div>
+</body>
+</html>
