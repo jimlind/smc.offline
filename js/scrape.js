@@ -4,13 +4,16 @@ var $scraper = "smcScrape.php";	// Scraper PHP Location
 $(document).ready(function() {
 	$("#userForm").submit(function(event) {
 		event.preventDefault();
-		//TODO: Don't allow submission with empty username
-		var $url = "publicview.asp?username=" + $("#userInput").val();
+		var $userName = $("#userInput").val();
+		if ($userName.length == 0) return false;
 		$('#userForm').remove(); // Remove the form.
 		
+		var $url = "publicview.asp?username=" + $userName;
 		$(document).trigger('buildStashes', [$url]);
 		//$(document).trigger('buildSeries');
-		//$(document).trigger('buildIssues');	
+		//$(document).trigger('buildIssues');
+		
+		return false;
 	});
 });
 
@@ -127,6 +130,14 @@ function getStashes($url) {
 		var $anchors = $.makeArray($frame.find("#showAllStash a"));
 		$frame.remove();
 		
+		// If there weren't any anchors you picked an invalid user
+		if ($anchors.length == 0) {
+			$db.createSeries();
+			$db.createIssue();
+			logIt("Invalid User. Previous data deleted.");
+			return false;
+		}
+		
 		var $index = 1;
 		/* Recursive function so setTimeout works. */
 		function processStashAnchors() {
@@ -147,6 +158,7 @@ function getStashes($url) {
 		}
 		
 		processStashAnchors();
+		return false;
 	}});
 }
 
