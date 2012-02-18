@@ -11,7 +11,6 @@
 	    overflow:hidden;
 	    margin:0;
 	    padding:0;
-	    
 	    font-family: courier, monospace;
 	    font-size:14px;
 	    color: #0f0;
@@ -24,7 +23,7 @@
 	    position:relative;
 	}
 	#console {
-	    position: absolute;
+	    position:absolute;
 	    bottom:20px;
 	    top:20px;
 	    left:0px;
@@ -40,6 +39,7 @@
 	
 	form {
 	    color:#fff;
+	    margin:30px 0 0 0;
 	    text-align:center;
 	}
 	form label {
@@ -47,16 +47,43 @@
 	    font-weight:bold;
 	}
 	form input {
-	    background-color: #fff;
+	    background-color:#fff;
 	    border:2px solid #fff;
-	    border-radius: 4px;
-	    color: #000;
+	    border-radius:4px;
+	    color:#000;
 	    font-size:14px;
 	}
-	form input.submit{
+	form input.submit {
 	    background-color: #666;
 	    color:#fff;
 	    font-weight:bold;
+	}
+	form h3{
+	    border-bottom:1px dotted #999;
+	    font-size:14px;
+	    font-weight:bold;
+	    line-height:18px;
+	    margin:40px auto 8px auto;
+	    padding:0;
+	    text-align:center;
+	    text-transform:uppercase;
+	    width:300px;
+	}
+	form dl {
+	    margin:0 auto;
+	    padding:0 0 0 10px;
+	    text-align:left;
+	    width:300px;
+	}
+	form dt {
+	    font-size:12px;
+	    font-weight:bold;
+	    padding:0 0 5px 20px;
+	}
+	form dd {
+	    font-size:10px;
+	    margin:0;
+	    padding:0 0 5px 0;
 	}
 </style> 
     
@@ -71,6 +98,13 @@
 	    <!-- TODO: SET COOKIE ON SUBMIT -->
 	    <input id="userInput" name="user" type="text" value=""/> 
 	    <input class="submit" type="submit"/>
+	    <h3>Example Users</h3>
+	    <dl>
+		<dt>achris162000</dt>
+		<dd>This user has a lot of stashes with a fair number of series per stash.</dd>
+		<dt>61971levy</dt>
+		<dd>This user has a few stashes, but one series with multiple pages and multiple pages of issues.</dd>
+	    </dl>
 	</form>
     </div>
     </div>
