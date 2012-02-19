@@ -3,27 +3,127 @@
 <head>
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript">
+	var $db = openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*1024);
+	
 	$(document).ready(function(){
-	    var $ul = $("#theBigList");
-	    console.log($ul);
-	    var $db = openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*1024);
+	    
+	    $("#showStashes").bind("click", function(event){
+		$("#stashes").show();
+		$("#series").hide();
+		$("#issues").hide();
+	    });
+	    
+	    $("#showSeries").bind("click", function(event){
+		$("#stashes").hide();
+		$("#series").show();
+		$("#issues").hide();
+	    });
+	    
+	    $("#showIssues").bind("click", function(event){
+		$("#stashes").hide();
+		$("#series").hide();
+		$("#issues").show();
+	    });
+	    
+	    var $stashList = $("#stashList");
 	    $db.transaction(function ($tx) {
-		var $query = "SELECT series.title, issue.issueNumber AS number, series.publisher, issue.published";
-		    $query += " FROM issue, series WHERE issue.seriesID = series.seriesID";
+		var $query = "SELECT stashID, title FROM stash";
 		$tx.executeSql($query, [], function ($tx, $results) {
 		    var $length = $results.rows.length;
 		    for(var $i = 0; $i < $length; $i++) {
 			var $item = $results.rows.item($i);
-			var $text = $item.title + " : " + $item.number + " : " + $item.publisher+ " (" + $item.published + ")";
-			var $li = $('<li />').html($text);
-			$ul.append($li);
+			var $li = $('<li />').html($item.title).attr("stashID", $item.stashID);
+			$stashList.append($li);
 		    }
 		});
 	    });
+	    $("#showStashes").trigger("click");
+	    
+	    $("#stashList li").live("click", function(event){
+		var $id = $(event.target).attr("stashID");
+		var $seriesList = $("#seriesList");
+		$seriesList.children().remove();
+	        $db.transaction(function ($tx) {
+		    var $query = "SELECT seriesID, title, publisher FROM series WHERE stashID = " + $id;
+		    $tx.executeSql($query, [], function ($tx, $results) {
+			var $length = $results.rows.length;
+		        for(var $i = 0; $i < $length; $i++) {
+			    var $item = $results.rows.item($i);
+			    var $text = $item.title + " " + $item.publisher;
+			    var $li = $('<li />').html($text).attr("seriesID", $item.seriesID);
+			    $seriesList.append($li);
+			}
+		    });
+		});
+		$("#showSeries").trigger("click");
+	    });
+	    
+	    $("#seriesList li").live("click", function(event){
+		var $id = $(event.target).attr("seriesID");
+		var $issueList = $("#issueList");
+		var $h1 = $("#issues").find("h1");
+		$issueList.children().remove();
+	        $db.transaction(function ($tx) {
+		    var $query = "SELECT * FROM series, issue WHERE series.seriesID = issue.seriesID AND series.seriesID = " + $id;
+		    $tx.executeSql($query, [], function ($tx, $results) {
+			var $length = $results.rows.length;
+			if ($length == 0) {
+			    $h1.html("No Issues Found");
+			    return false;
+			}
+			
+			$h1.html("Issues of " + $results.rows.item(0).title);
+			var $length = $results.rows.length;
+			for(var $i = 0; $i < $length; $i++) {
+			    var $item = $results.rows.item($i);
+			    var $text = $item.issueNumber + " " + $item.published;
+			    var $li = $('<li />').html($text);
+			    $issueList.append($li);
+			}
+		    });
+		});
+		$("#showIssues").trigger("click");
+	    });
 	});
     </script>
+    
+    <style type="text/css">
+	li { cursor:pointer;
+	     text-decoration:underline;
+	}
+	li:hover {
+	    text-decoration:none;
+	}
+	.revert {
+	    cursor:pointer;
+	    text-decoration:underline;
+	}
+	.revert:hover {
+	    text-decoration:none;
+	}
+	#issueList li {
+	    text-decoration:none;
+	    cursor:default;
+	}
+    </style>
 </head>
 <body>
-    <ul id="theBigList">
-    </ul>
+    <div id="stashes" style="display:none;">
+	<h1>Stashes</h1>
+	<ul id="stashList"></ul>
+    </div>
+ 
+    <div id="series" style="display:none;">
+	<h1>Series</h1>
+	<p id="showStashes" class="revert">Show Stashes</p>
+	<ul id="seriesList"></ul>
+    </div>
+    
+    <div id="issues" style="display:none;">
+	<h1>Issues</h1>
+	<p id="showSeries" class="revert">Show Series</p>
+	<ul id="issueList"></ul>
+    </div>
+    
+    <div id="showIssues" style="display:none" />
 </body>
