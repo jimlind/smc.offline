@@ -5,6 +5,7 @@ $(document).ready(function() {
 	$("#userForm").submit(function(event) {
 		event.preventDefault();
 		var $userName = $("#userInput").val();
+		$.cookie("user", $userName);
 		if ($userName.length == 0) return false;
 		$('#userForm').remove(); // Remove the form.
 		
@@ -15,6 +16,11 @@ $(document).ready(function() {
 		
 		return false;
 	});
+	
+	var $userCookie = $.cookie("user");
+	if ($userCookie !== null) {
+		$("#userInput").val($userCookie);
+	}
 });
 
 // Build the Stashes - Custom event binding and unbinding
