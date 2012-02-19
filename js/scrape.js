@@ -185,8 +185,8 @@ function getSeries($data) {
 		// If the item has been cleared or not instantiated
 		if ($item == null) {
 			if ($nextAnchor.length == 1) {
-				$item = {'url': $nextAnchor.attr('href')};
-				logIt("Scraping next page of stash...");
+				$item = {'url': $nextAnchor.attr('href'), 'stashID': $data[$i-1].stashID};
+				logIt("Scraping next page of series...");
 			} else {
 				$item = $data[$i];
 				logIt("Scraping '" + $item.title + "' stash...");
@@ -248,8 +248,8 @@ function getIssues($data) {
 		// If the item has been cleared or not instantiated
 		if ($item == null) {
 			if ($nextAnchor.length == 1) {
-				$item = {'url': $nextAnchor.attr('href')};
-				logIt("Scraping next page of series...");
+				$item = {'url': $nextAnchor.attr('href'), 'seriesID': $data[$i-1].seriesID};
+				logIt("Scraping next page of issues...");
 			} else {
 				$item = $data[$i];
 				logIt("Scraping '" + $item.title + "' series...");
