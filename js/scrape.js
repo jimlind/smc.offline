@@ -10,9 +10,11 @@ $(document).ready(function() {
 		$('#userForm').remove(); // Remove the form.
 		
 		var $url = "publicview.asp?username=" + $userName;
+		// *****Comment and uncomment these triggers for testing.
 		$(document).trigger('buildStashes', [$url]);
 		//$(document).trigger('buildSeries');
 		//$(document).trigger('buildIssues');
+		//$(document).trigger('buildImages');
 		
 		return false;
 	});
@@ -44,24 +46,40 @@ $(document).bind('buildIssues', function($event) {
 	$(document).unbind('buildIssues');
 });
 
-// Process Database Records for Stashes
+// Build the Images - Custom event binding and unbinding
+$(document).bind('buildImages', function($event) {	
+	//$db.viewImage();
+	$db.createImage();
+	$db.processSelectAll('series', 'imgSeriesQueryComplete');
+	$(document).unbind('buildImages');
+});
+
+// Process Database Records from Stashes
 $(document).bind('stashQueryComplete', function($event) {
 	var $data = $db.data;
 	getSeries($data);
 	$(document).unbind('stashQueryComplete');
 });
 
-// Process Database Records for Series
+// Process Database Records from Series
 $(document).bind('seriesQueryComplete', function($event) {
 	var $data = $db.data;
 	getIssues($data);
 	$(document).unbind('seriesQueryComplete');
 });
 
+// Process Database Records for Images
+$(document).bind('imgSeriesQueryComplete', function($event) {
+	var $data = $db.data;
+	getImages($data);
+	$(document).unbind('imgSeriesQueryComplete');
+});
+
 /* Database Creation Object */
 var $db = {
 	// Database Reference
-	database : openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*1024),
+	database : openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*1024), //  5MB - Data
+	imgdatabase : openDatabase("imgdatabase", "1.0", "Local StashMyComics Images", 45*1024*1024),  // 45MB - Images
 	// Data Storage
 	data : null,
 	// Stashes Drop & Create
@@ -119,6 +137,21 @@ var $db = {
 				$(document).trigger($eventName);
 			});
 		});
+	},
+	// **** Images Fetch Functionality ****
+	// Image Drop & Create
+	createImage : function(){
+		this.imgdatabase.transaction(function($tx) {
+			$tx.executeSql("DROP TABLE IF EXISTS image");
+			$tx.executeSql("CREATE TABLE image (imageID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, seriesID INTEGER, data);");
+		});
+		logIt("Database 'image' created.");
+	},
+	// Image Insert
+	insertImage : function ($seriesID, $input) {
+		this.imgdatabase.transaction(function($tx) {
+			$tx.executeSql("INSERT INTO image (seriesID, data) VALUES (?, ?)", [$seriesID, $input]);
+		});
 	}
 }
 
@@ -164,7 +197,6 @@ function getStashes($url) {
 		}
 		
 		processStashAnchors();
-		return false;
 	}});
 }
 
@@ -225,7 +257,6 @@ function getSeries($data) {
 			}
 			setTimeout(processSeries, 50);
 		}
-		return false;
 	}
 	
 	processSeries();
@@ -234,7 +265,6 @@ function getSeries($data) {
 function getIssues($data) {
 	var $i = 0;
 	var $item;
-	var $loaderDiv;
 	var $rows = new Array();
 	var $nextAnchor = new Array();
 	
@@ -242,6 +272,7 @@ function getIssues($data) {
 		// If all data has been used and item has been emptied
 		if ($i >= $data.length && $item == null) {
 			logIt("All series found.");
+			$(document).trigger('buildImages');
 			return false;
 		}
 		
@@ -275,7 +306,7 @@ function getIssues($data) {
 			//shift rows and insert in database
 			var $row = $($rows.shift());
 			var $tableData = $row.find("td");
-
+			
 			var $anchor = $($($tableData[2]).html());
 			var $published = $($tableData[3]).html();
 			var $href = $anchor.attr("href");
@@ -290,13 +321,81 @@ function getIssues($data) {
 			}
 			setTimeout(processIssues, 50);
 		}
-		return false;
 	}
 	
 	processIssues();
 }
 
+function getImages($data) {
+	var $i = 0;
+	var $item;
+	
+	function processImages() {
+		// If all data has been used and item has been emptied
+		if ($i >= $data.length && $item == null) {
+			nukeImages();
+			logIt("All images found.");
+			return false;
+		}
+		
+		// If the item has been cleared or not instantiated
+		if ($item == null) {
+			$item = $data[$i];
+			logIt("Fetching image for '" + $item.title + "'...");
+			$i++;
+			setTimeout(processImages, 50);
+			return false;
+		}
+		
+		//load anchor tag via jquery
+		var $url = $scraper + "?i=" + escape($item.url);
+		jQuery.ajax({'url': $url, 'async': false, 'success': function(result) {
+			// Add AJAX results to an object
+			var $loaderDiv = $('<div />').html(result);
+			var $anchor = $.makeArray($loaderDiv.find("#catRes tr:eq(1) td:eq(5) a"));
+			var $src = $($anchor).attr("href");
+			var $html = $($anchor).html();
+			var $seriesID = $item.seriesID;				
+			$item = null;
+				
+			if($html == "N" || $src == null) {
+				setTimeout(processImages, 100);
+				return false;
+			}
+				
+			var $canvas = $('<canvas height="150" width="150" />');
+			var $ctx = $canvas[0].getContext('2d');	
+			var $image = new Image();
+			$($image).attr('height', '200');
+			
+			nukeImages();
+			logImage($image);
+			
+			$image.onload = function() {
+				var $ratio = $image.width / $image.height;
+				var $width = Math.round(150*$ratio);
+				$canvas.attr("width", $width);
+				$ctx.drawImage($image, 0, 0, $width, 150);
+				var $base64 = $ctx.canvas.toDataURL("image/png");
+				$db.insertImage($seriesID, $base64);
+				setTimeout(processImages, 500);
+				return false;
+			}
+			$image.src = $scraper + "?i=" + escape($src) + "&type=jpg";
+		}});
+	}
+	processImages();
+}
+
 function logIt($string) {
 	var $tag = $('<p />').html($string);
 	$('#console').append($tag).prop({scrollTop: $("#console").prop("scrollHeight")});
+}
+
+function logImage($img) {
+	$('#console').append($img).prop({scrollTop: $("#console").prop("scrollHeight")});
+}
+
+function nukeImages() {
+	$('#console img').remove();
 }
