@@ -12,13 +12,20 @@ $i = filter_input(INPUT_GET, 'i', FILTER_SANITIZE_STRING);
 // Decode input
 $i = urldecode($i);
 // Remove all characters that are weird
-$i = preg_replace('/[^a-z0-9:& .?=-]/i', '', $i);
-
+$i = preg_replace('#[^a-z0-9:/& .?=-]#i', '', $i);
 // Replace space with plus;
 $i = str_replace(' ', '+', $i);
 
+// Sanitize input
+$type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+
 // I've never been able to trust the PHP-cURL library, so I do it the hard way.
 $fetchScript = "curl '$baseURL/$i'";
+if ($type === 'jpg') {
+    $fetchScript = "curl '$i'";
+    header('Content-Type: Image');
+}    
+
 $output = shell_exec($fetchScript);
 if($output == null) {
     echo "FAILURE TO COMMUNICATE";
