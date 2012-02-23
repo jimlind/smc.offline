@@ -4,6 +4,7 @@
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript">
 	var $db = openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*1024);
+	var $im = openDatabase("imgdatabase", "1.0", "Local StashMyComics Images", 45*1024*1024);
 	
 	$(document).ready(function(){
 	    
@@ -62,16 +63,16 @@
 		var $id = $(event.target).attr("seriesID");
 		var $issueList = $("#issueList");
 		var $h1 = $("#issues").find("h1");
+		var $img = $("#issues").find("img");
 		$issueList.children().remove();
 	        $db.transaction(function ($tx) {
-		    var $query = "SELECT * FROM series, issue WHERE series.seriesID = issue.seriesID AND series.seriesID = " + $id;
-		    $tx.executeSql($query, [], function ($tx, $results) {
+		    var $query = "SELECT * FROM series, issue WHERE series.seriesID = issue.seriesID AND series.seriesID = ?";
+		    $tx.executeSql($query, [$id], function ($tx, $results) {
 			var $length = $results.rows.length;
 			if ($length == 0) {
 			    $h1.html("No Issues Found");
 			    return false;
 			}
-			
 			$h1.html("Issues of " + $results.rows.item(0).title);
 			var $length = $results.rows.length;
 			for(var $i = 0; $i < $length; $i++) {
@@ -80,6 +81,12 @@
 			    var $li = $('<li />').html($text);
 			    $issueList.append($li);
 			}
+		    });
+		});
+		$im.transaction(function ($tx) {
+		    var $query = "SELECT * FROM image WHERE seriesID = ?";
+		    $tx.executeSql($query, [$id], function ($tx, $results) {
+			$img.attr("src", $results.rows.item(0).data);
 		    });
 		});
 		$("#showIssues").trigger("click");
@@ -122,6 +129,7 @@
     <div id="issues" style="display:none;">
 	<h1>Issues</h1>
 	<p id="showSeries" class="revert">Show Series</p>
+	<img src=""/>
 	<ul id="issueList"></ul>
     </div>
     
