@@ -393,9 +393,9 @@ function logIt($string) {
 }
 
 function logImage($img) {
-	$('#console').append($img).prop({scrollTop: $("#console").prop("scrollHeight")});
+	$('#image_container').append($img);
 }
 
 function nukeImages() {
-	$('#console img').remove();
+	$('#image_container img').remove();
 }

@@ -23,10 +23,14 @@
 	    height:100%;
 	    position:relative;
 	}
+	#header {
+	    background: url("img/scraper.png") no-repeat center center;
+	    height:78px;
+	}
 	#console {
 	    position:absolute;
 	    bottom:20px;
-	    top:20px;
+	    top:80px;
 	    left:0px;
 	    right:0px;
 	    overflow:auto;
@@ -37,10 +41,19 @@
 	    height:16px;
 	    overflow:hidden;
 	}
+	#image_container {
+	    bottom:30px;
+	    height:200px;
+	    opacity: 0.3;
+	    position:absolute;
+	    right:30px;
+	    text-align:right;
+	    width:500px;
+	}
 	
 	form {
 	    color:#fff;
-	    margin:30px 0 0 0;
+	    margin:0;
 	    text-align:center;
 	}
 	form label {
@@ -91,6 +104,8 @@
 </head>
 <body>
     <div id="content">
+    <div id="header"></div>
+    <div id="image_container"></div>
     <div id="console" style="display:block;">
 	<form id="userForm">
 	    <label for="user">User:</label>
@@ -102,6 +117,8 @@
 		<dd>This user has a lot of stashes with a fair number of series per stash.</dd>
 		<dt>61971levy</dt>
 		<dd>This user has a few stashes, but one series with multiple pages and multiple pages of issues.</dd>
+		<dt>midnighter</dt>
+		<dd>This user only has a few Nexus comics so it's a quick index for testing</dd>
 	    </dl>
 	</form>
     </div>
