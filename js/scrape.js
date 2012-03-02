@@ -5,7 +5,7 @@ $(document).ready(function() {
 	$("#userForm").submit(function(event) {
 		event.preventDefault();
 		var $userName = $("#userInput").val();
-		$.cookie("user", $userName);
+		$.cookie("user", $userName, {expires: 365});
 		if ($userName.length == 0) return false;
 		$('#userForm').remove(); // Remove the form.
 		
