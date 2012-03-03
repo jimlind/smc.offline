@@ -333,7 +333,6 @@ function getImages($data) {
 	function processImages() {
 		// If all data has been used and item has been emptied
 		if ($i >= $data.length && $item == null) {
-			nukeImages();
 			logIt("All images found.");
 			return false;
 		}
@@ -367,8 +366,6 @@ function getImages($data) {
 			var $ctx = $canvas[0].getContext('2d');	
 			var $image = new Image();
 			$($image).attr('height', '200');
-			
-			nukeImages();
 			logImage($image);
 			
 			$image.onload = function() {
@@ -388,14 +385,16 @@ function getImages($data) {
 }
 
 function logIt($string) {
+	var $console = $('#console');
+	var $heightBefore = $console.prop("scrollHeight");
 	var $tag = $('<p />').html($string);
-	$('#console').append($tag).prop({scrollTop: $("#console").prop("scrollHeight")});
+	$console.append($tag);
+	if ($console.prop("scrollHeight") > $heightBefore) {
+		$console.find("p:first").remove();
+	}
 }
 
 function logImage($img) {
-	$('#image_container').append($img);
-}
-
-function nukeImages() {
 	$('#image_container img').remove();
+	$('#image_container').append($img);
 }
