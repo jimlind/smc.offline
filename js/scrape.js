@@ -116,14 +116,14 @@ var $db = {
 	createIssue : function(){
 		this.database.transaction(function($tx) {
 			$tx.executeSql("DROP TABLE IF EXISTS issue");
-			$tx.executeSql("CREATE TABLE issue (issueID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, seriesID INTEGER, smcIssueID INTEGER, issueNumber, published);");
+			$tx.executeSql("CREATE TABLE issue (issueID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, seriesID INTEGER, smcIssueID INTEGER, issueNumber, published, info);");
 		});
 		logIt("Database table 'issue' created.");
 	},
 	// Issue Insert
-	insertIssue : function($seriesID, $smcIssueID, $issueNumber, $published) {
+	insertIssue : function($seriesID, $smcIssueID, $issueNumber, $published, $info) {
 		this.database.transaction(function(tx) {
-			tx.executeSql("INSERT INTO issue (seriesID, smcIssueID, issueNumber, published) VALUES (?, ?, ?, ?)", [$seriesID, $smcIssueID, $issueNumber, $published]);
+			tx.executeSql("INSERT INTO issue (seriesID, smcIssueID, issueNumber, published, info) VALUES (?, ?, ?, ?, ?)", [$seriesID, $smcIssueID, $issueNumber, $published, $info]);
 		});
 	},
 	// Return All Data From Database
@@ -314,10 +314,11 @@ function getIssues($data) {
 			
 			var $anchor = $($($tableData[2]).html());
 			var $published = $($tableData[3]).html();
+			var $info = $($tableData[4]).html();
 			var $href = $anchor.attr("href");
 			var $kcid = $href.match(/kcid=([0-9]+)/)[1];
 			var $issue = $anchor.html();
-			$db.insertIssue($item.seriesID, $kcid, $issue, $published);
+			$db.insertIssue($item.seriesID, $kcid, $issue, $published, $info);
 			logIt("&nbsp-&nbsp;Issue: '" + $issue + "' added." + "(" + $published + ")");
 			
 			// If all rows have been used, clear item so it can be reset.

@@ -78,7 +78,10 @@
 			var $length = $results.rows.length;
 			for(var $i = 0; $i < $length; $i++) {
 			    var $item = $results.rows.item($i);
-			    var $text = $item.issueNumber + " " + $item.published;
+			    var $text = $item.issueNumber + " :: " + $item.published;
+			    if ($item.info != "") {
+				$text += " :: " + $item.info;
+			    }
 			    var $li = $('<li />').html($text);
 			    $issueList.append($li);
 			}
