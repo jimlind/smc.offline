@@ -45,13 +45,13 @@
 		var $seriesList = $("#seriesList");
 		$seriesList.children().remove();
 	        $db.transaction(function ($tx) {
-		    var $query = "SELECT seriesID, title, publisher FROM series WHERE stashID = " + $id;
+		    var $query = "SELECT seriesID, smcSeriesID, title, publisher FROM series WHERE stashID = " + $id;
 		    $tx.executeSql($query, [], function ($tx, $results) {
 			var $length = $results.rows.length;
 		        for(var $i = 0; $i < $length; $i++) {
 			    var $item = $results.rows.item($i);
 			    var $text = $item.title + " " + $item.publisher;
-			    var $li = $('<li />').html($text).attr("seriesID", $item.seriesID);
+			    var $li = $('<li />').html($text).attr("seriesID", $item.seriesID).attr("smcID", $item.smcSeriesID);
 			    $seriesList.append($li);
 			}
 		    });
@@ -61,6 +61,7 @@
 	    
 	    $("#seriesList li").live("click", function(event){
 		var $id = $(event.target).attr("seriesID");
+		var $smc = $(event.target).attr("smcID");
 		var $issueList = $("#issueList");
 		var $h1 = $("#issues").find("h1");
 		var $img = $("#issues").find("img");
@@ -84,8 +85,8 @@
 		    });
 		});
 		$im.transaction(function ($tx) {
-		    var $query = "SELECT * FROM image WHERE seriesID = ?";
-		    $tx.executeSql($query, [$id], function ($tx, $results) {
+		    var $query = "SELECT * FROM image WHERE smcSeriesID = ?";
+		    $tx.executeSql($query, [$smc], function ($tx, $results) {
 			$img.attr("src", $results.rows.item(0).data);
 		    });
 		});
@@ -95,8 +96,11 @@
     </script>
     
     <style type="text/css">
+	body {
+	    background:#990033;
+	}
 	li { cursor:pointer;
-	     text-decoration:underline;
+	    text-decoration:underline;
 	}
 	li:hover {
 	    text-decoration:none;

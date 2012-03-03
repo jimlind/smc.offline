@@ -91,7 +91,7 @@ var $db = {
 			$tx.executeSql("DROP TABLE IF EXISTS stash");
 			$tx.executeSql("CREATE TABLE stash (stashID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title, url);");
 		});
-		logIt("Database 'stash' created.");
+		logIt("Database table 'stash' created.");
 	},
 	// Stashes Insert
 	insertStash : function($title, $url){
@@ -105,7 +105,7 @@ var $db = {
 			$tx.executeSql("DROP TABLE IF EXISTS series");
 			$tx.executeSql("CREATE TABLE series (seriesID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, stashID INTEGER, smcSeriesID INTEGER, title, publisher, url);");
 		});
-		logIt("Database 'series' created.");
+		logIt("Database table 'series' created.");
 	},
 	// Series Insert
 	insertSeries : function($stashID, $smcSeriesID, $title, $publisher, $url){
@@ -119,7 +119,7 @@ var $db = {
 			$tx.executeSql("DROP TABLE IF EXISTS issue");
 			$tx.executeSql("CREATE TABLE issue (issueID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, seriesID INTEGER, smcIssueID INTEGER, issueNumber, published);");
 		});
-		logIt("Database 'issue' created.");
+		logIt("Database table 'issue' created.");
 	},
 	// Issue Insert
 	insertIssue : function($seriesID, $smcIssueID, $issueNumber, $published) {
@@ -146,14 +146,14 @@ var $db = {
 	createImage : function(){
 		this.imgdatabase.transaction(function($tx) {
 			$tx.executeSql("DROP TABLE IF EXISTS image");
-			$tx.executeSql("CREATE TABLE image (imageID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, seriesID INTEGER, data);");
+			$tx.executeSql("CREATE TABLE image (imageID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, smcSeriesID INTEGER, data);");
 		});
-		logIt("Database 'image' created.");
+		logIt("Database table 'image' created.");
 	},
 	// Image Insert
-	insertImage : function ($seriesID, $input) {
+	insertImage : function ($smcSeriesID, $input) {
 		this.imgdatabase.transaction(function($tx) {
-			$tx.executeSql("INSERT INTO image (seriesID, data) VALUES (?, ?)", [$seriesID, $input]);
+			$tx.executeSql("INSERT INTO image (smcSeriesID, data) VALUES (?, ?)", [$smcSeriesID, $input]);
 		});
 	}
 }
@@ -176,6 +176,7 @@ function getStashes($url) {
 		if ($anchors.length == 0) {
 			$db.createSeries();
 			$db.createIssue();
+			$db.createImage();
 			logIt("Invalid User. Previous data deleted.");
 			return false;
 		}
@@ -359,7 +360,7 @@ function getImages($data) {
 			var $anchor = $.makeArray($loaderDiv.find("#catRes tr:eq(1) td:eq(5) a"));
 			var $src = $($anchor).attr("href");
 			var $html = $($anchor).html();
-			var $seriesID = $item.seriesID;				
+			var $smcSeriesID = $item.smcSeriesID;				
 			$item = null;
 				
 			if($html == "N" || $src == null) {
@@ -379,7 +380,7 @@ function getImages($data) {
 				$canvas.attr("width", $width);
 				$ctx.drawImage($image, 0, 0, $width, 150);
 				var $base64 = $ctx.canvas.toDataURL("image/png");
-				$db.insertImage($seriesID, $base64);
+				$db.insertImage($smcSeriesID, $base64);
 				setTimeout(processImages, 500);
 				return false;
 			}
