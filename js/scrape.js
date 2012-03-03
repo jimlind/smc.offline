@@ -51,7 +51,6 @@ $(document).bind('buildIssues', function($event) {
 
 // Build the Images - Custom event binding and unbinding
 $(document).bind('buildImages', function($event) {	
-	//$db.viewImage();
 	$db.createImage();
 	$db.processSelectAll('series', 'imgSeriesQueryComplete');
 	$(document).unbind('buildImages');
