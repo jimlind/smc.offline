@@ -1,21 +1,24 @@
 var $scraper = "smcScrape.php";	// Scraper PHP Location
+var $scrapeData = true;
+var $scrapeImages = true;
 
 // Wait for the DOM to be ready, then look for a form submittal.
 $(document).ready(function() {
 	$("#userForm").submit(function(event) {
 		event.preventDefault();
 		var $userName = $("#userInput").val();
+		$scrapeData = $("#scrapeData").is(':checked');
+		$scrapeImages = $("#scrapeImages").is(':checked');
 		$.cookie("user", $userName, {expires: 365});
 		if ($userName.length == 0) return false;
 		$('#userForm').remove(); // Remove the form.
 		
-		var $url = "publicview.asp?username=" + $userName;
-		// *****Comment and uncomment these triggers for testing.
-		$(document).trigger('buildStashes', [$url]);
-		//$(document).trigger('buildSeries');
-		//$(document).trigger('buildIssues');
-		//$(document).trigger('buildImages');
-		
+		if ($scrapeData) {
+			var $url = "publicview.asp?username=" + $userName;
+			$(document).trigger('buildStashes', [$url]);
+		} else if (!$scrapeData && $scrapeImages) {
+			$(document).trigger('buildImages');
+		}		
 		return false;
 	});
 	
@@ -272,7 +275,9 @@ function getIssues($data) {
 		// If all data has been used and item has been emptied
 		if ($i >= $data.length && $item == null) {
 			logIt("All series found.");
-			$(document).trigger('buildImages');
+			if ($scrapeImages) {
+				$(document).trigger('buildImages');
+			}
 			return false;
 		}
 		
