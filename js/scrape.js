@@ -26,6 +26,12 @@ $(document).ready(function() {
 	if ($userCookie !== null) {
 		$("#userInput").val($userCookie);
 	}
+	
+	$("#nuclearOption").click(function() {
+		$('#userForm').remove(); // Remove the form.
+		$db.clearTables();
+		logIt("Local database tables dropped.");
+	});
 });
 
 // Build the Stashes - Custom event binding and unbinding
@@ -153,6 +159,17 @@ var $db = {
 	insertImage : function ($smcSeriesID, $input) {
 		this.imgdatabase.transaction(function($tx) {
 			$tx.executeSql("INSERT INTO image (smcSeriesID, data) VALUES (?, ?)", [$smcSeriesID, $input]);
+		});
+	},
+	// **** Nuclear Option ****
+	clearTables : function(){
+		this.database.transaction(function($tx) {
+			$tx.executeSql("DROP TABLE IF EXISTS stash");
+			$tx.executeSql("DROP TABLE IF EXISTS series");
+			$tx.executeSql("DROP TABLE IF EXISTS issue");
+		});
+		this.imgdatabase.transaction(function($tx) {
+			$tx.executeSql("DROP TABLE IF EXISTS image");
 		});
 	}
 }
