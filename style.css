@@ -1,6 +1,9 @@
 body {
     background:#990033;
-    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.offline, .online {
+	display:none;
 }
 #splash .logo {
     background:url("img/logo.png");
@@ -32,25 +35,40 @@ li:hover {
     width:280px;
 }
 
-button {
-    background-color:#eeeeee;
-    background-image:-webkit-linear-gradient(top, #eeeeee, #cccccc);
-    border:1px solid #ccc;
-    border-bottom:1px solid #bbb;
-    border-radius:3px;
-    color:#333;
-    cursor:pointer;
-    font-size:12px;
-    font-weight:bold;
-    line-height:1;
-    padding:4px 14px;
-    text-align:center;
-    text-shadow:0 1px 0 #eee;
+div.fancyButton {
+	background-color:#e2e2e2;
+	background-image:-webkit-linear-gradient(top, #e2e2e2, #fafafa);
+	border-bottom:1px solid #e7e7e7;
+	border-left:1px solid #eaeaea;
+	border-right:1px solid #eaeaea;
+	border-top:1px solid #dfdfdf;
+	border-radius:8px;
+	margin:0 auto;
+	padding:10px 0;
+	width:170px;
 }
-button:hover {
-    background-color:#dddddd;
-    background-image:-webkit-linear-gradient(top, #dddddd, #bbbbbb);
-    border:1px solid #bbb;
-    border-bottom:1px solid #999;
-    text-shadow:0 1px 0 #ddd;
+div.fancyButton button {
+	background-color:#f3f3f3;
+	background-image:-webkit-linear-gradient(top, #f3f3f3 0%, #dddddd 50%, #d2d2d2 50%, #dfdfdf 100%);
+	border:0;
+	border-bottom:1px solid #b4b4b4;
+	border-right:1px solid #dfdfdf;
+	border-radius:5px;
+	box-shadow:inset 0 1px 0 0 white, 0 1px 0 0 #d5d5d5, 0 -1px 2px 1px #efefef;
+	color:#666;
+	cursor:pointer;
+	font-size:18px;
+	font-weight:bold;
+	margin:0;
+	padding:7px 0;
+	text-shadow:0 1px 1px #fff;
+	width:150px;
+}  
+div.fancyButton button:hover {
+    background-color:#e5e5e5;
+    background-image:-webkit-linear-gradient(top, #e5e5e5 0%, #d1d1d1 50%, #c4c4c4 50%, #b8b8b8 100%);
+    box-shadow:inset 0 1px 0 0 #f2f2f2, 0 1px 0 0 #c9c9c9, 0 -1px 2px 1px #e3e3e3;
+}
+div.fancyButton button:active {
+	box-shadow:inset 0 0 30px 0 #999999, 0 1px 0 0 white;
 }

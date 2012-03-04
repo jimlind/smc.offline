@@ -3,16 +3,13 @@
 <head>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript" src="js/view.js"></script>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-
-    </style>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <div id="splash">
-	<div class="logo"></div>
+		<div class="logo"></div>
     </div>
     
     <div id="stashes" style="display:none;">
@@ -36,7 +33,14 @@
     <div id="showIssues" style="display:none"></div>
     
     <div id="scrapePrompt" style="display:none">
-	<p>We don't have any information about your stashes. You probably haven't scraped your collection yet so get down to buisness.</p>
-	<button>Scrape It!</button>
+		<p>We don't have any information about your stashes. You probably haven't scraped your collection yet so get down to buisness.</p>
+		<div class="online">
+			<div class="fancyButton">
+				<button class="minimal-indent">Scrape It!</button>
+			</div>
+		</div>
+		<div class="offline">
+			<p>You are offline.  Connect so you can scrape.</p>
+		</div>
     </div>
 </body>

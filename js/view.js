@@ -2,6 +2,13 @@ var $db = openDatabase("database", "1.0", "Local StashMyComics Data", 5*1024*102
 var $im = openDatabase("imgdatabase", "1.0", "Local StashMyComics Images", 45*1024*1024);
 
 $(document).ready(function(){
+	if (navigator.onLine) {
+		$(".online").show();
+		$(".online").css("display", "block");
+	} else {
+		$(".offline").show();
+		$(".offline").css("display", "block");
+	}
 	
 	$("#showStashes").bind("click", function(event){
 		$("#splash").hide();
