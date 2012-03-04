@@ -1,0 +1,56 @@
+body {
+    background:#990033;
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#splash .logo {
+    background:url("img/logo.png");
+    height:305px;
+    margin:0 auto;
+    width:318px;
+}
+li { cursor:pointer;
+    text-decoration:underline;
+}
+li:hover {
+    text-decoration:none;
+}
+.revert {
+    cursor:pointer;
+    text-decoration:underline;
+}
+.revert:hover {
+    text-decoration:none;
+}
+#issueList li {
+    text-decoration:none;
+    cursor:default;
+}
+#scrapePrompt {
+    font-size:14px;
+    margin:0 auto;
+    text-align:center;
+    width:280px;
+}
+
+button {
+    background-color:#eeeeee;
+    background-image:-webkit-linear-gradient(top, #eeeeee, #cccccc);
+    border:1px solid #ccc;
+    border-bottom:1px solid #bbb;
+    border-radius:3px;
+    color:#333;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+    line-height:1;
+    padding:4px 14px;
+    text-align:center;
+    text-shadow:0 1px 0 #eee;
+}
+button:hover {
+    background-color:#dddddd;
+    background-image:-webkit-linear-gradient(top, #dddddd, #bbbbbb);
+    border:1px solid #bbb;
+    border-bottom:1px solid #999;
+    text-shadow:0 1px 0 #ddd;
+}
