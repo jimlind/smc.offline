@@ -1,163 +1,180 @@
 <!doctype html>
 <html>
 <head>
-    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/scrape.js"></script>
-    <style type="text/css"> 
+	<meta name = "viewport" content = "width = 800, user-scalable = no">
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="js/scrape.js"></script>
+	<style type="text/css"> 
 	html, body {
-	    background-color: #000;
-	    border:0;
-	    color: #0f0;
-	    font-family: courier, monospace;
-	    font-size:14px;
-	    height:100%;
-	    margin:0;
-	    overflow:hidden;
-	    padding:0;
+		background-color: #000;
+		border:0;
+		color: #0f0;
+		font-family: courier, monospace;
+		font-size:14px;
+		height:100%;
+		margin:0;
+		overflow:hidden;
+		padding:0;
 	}
 	#content {
-	    height:100%;
-	    margin:0 auto;
-	    position:relative;
-	    width:600px;
+		height:100%;
+		margin:0 auto;
+		position:relative;
+		width:600px;
 	}
 	#header {
-	    background: url("img/scraper.png") no-repeat center center;
-	    height:78px;
+		background: url("img/scraper.png") no-repeat center center;
+		height:78px;
 	}
 	#console {
-	    overflow:hidden;
-	    position:absolute;
-		bottom:20px;
-		left:0px;
-		right:0px;
-		top:80px;
+		overflow:hidden;
+		position:absolute;
+			bottom:20px;
+			left:0px;
+			right:0px;
+			top:80px;
 	}
 	#console p {
-	    height:16px;
-	    margin:0px;
-	    overflow:hidden;
-	    padding:1px 0px;
+		height:16px;
+		margin:0px;
+		overflow:hidden;
+		padding:1px 0px;
 	}
 	#image_container {
-	    bottom:30px;
-	    height:200px;
-	    opacity: 0.3;
-	    position:absolute;
-	    right:30px;
-	    text-align:right;
-	    width:500px;
+		bottom:30px;
+		height:200px;
+		opacity: 0.3;
+		position:absolute;
+		right:30px;
+		text-align:right;
+		width:500px;
 	}
 	
 	form {
-	    color:#fff;
-	    margin:0;
-	    text-align:center;
+		color:#fff;
+		margin:0;
+		text-align:center;
+	}
+	form .userRow {
+		height:24px;
+		line-height:24px;
+	}
+	form .scrapeRow {
+		margin:6px auto 0 auto;
+		width:300px;
 	}
 	form label {
-	    font-size:16px;
-	    font-weight:bold;
+		font-size:14px;
+		font-weight:bold;
+	}
+	form .scrapeRow label {
+		font-size:12px;
 	}
 	form input {
-	    background-color:#fff;
-	    border:2px solid #fff;
-	    border-radius:4px;
-	    color:#000;
-	    font-size:14px;
+		margin:0;
+		padding:0;
+		vertical-align:top;
+		-webkit-appearance:none;
 	}
-	form input.submit {
-	    background-color: #666;
-	    color:#fff;
-	    font-weight:bold;
+	form input[type="text"] {
+		background-color:#fff;
+		border:2px solid #fff;
+		border-radius:4px;
+		color:#000;
+		font-size:14px;
+		height:20px;
+		padding:0 0 0 4px;
 	}
-	form .checkboxes {
-	    margin:0 auto;
-	    padding:4px 0 0 0;
-	    text-align:left;
-	    width:200px;
+	form input[type="submit"] {
+		background-color: #666;
+		border:2px solid #fff;
+		border-radius:4px;
+		color:#fff;
+		cursor:pointer;
+		font-weight:bold;
+		height:24px;
+		padding:0 6px;
 	}
-	form .checkboxes input {
-	    margin:0;
-	    padding:0;
-	    vertical-align:-2px;
-	}
-	form .checkboxes label {
-	    font-size:12px;
+	form input[type="checkbox"] {
+		background-color:#666;	    
+		-webkit-appearance:checkbox;
 	}
 	form h3{
-	    background:#666;
-	    border-radius:4px;
-	    font-size:12px;
-	    font-weight:bold;
-	    line-height:20px;
-	    margin:40px auto 8px auto;
-	    text-align:center;
-	    text-transform:uppercase;
-	    width:300px;
+		background:#666;
+		border-radius:4px;
+		font-size:12px;
+		font-weight:bold;
+		line-height:20px;
+		margin:40px auto 8px auto;
+		text-align:center;
+		text-transform:uppercase;
+		width:300px;
 	}
 	form dl {
-	    margin:0 auto;
-	    padding:0 0 0 10px;
-	    text-align:left;
-	    width:300px;
+		margin:0 auto;
+		padding:0 0 0 10px;
+		text-align:left;
+		width:300px;
 	}
 	form dt {
-	    font-size:12px;
-	    font-weight:bold;
-	    padding:0 0 5px 20px;
+		font-size:12px;
+		font-weight:bold;
+		padding:0 0 5px 20px;
 	}
 	form dd {
-	    font-size:10px;
-	    margin:0;
-	    padding:0 0 5px 0;
+		font-size:10px;
+		margin:0;
+		padding:0 0 5px 0;
 	}
 	
 	#nuclearOption {
-	    background: #000;
-	    border:2px solid #0f0;
-	    border-radius:4px;
-	    color:#0f0;
-	    cursor:pointer;
-	    font-size:12px;
-	    font-weight:bold;
-	    line-height:18px;
-	    margin:20px auto 0 auto;
-	    width:110px;
+		background: #000;
+		border:2px solid #0f0;
+		border-radius:4px;
+		color:#0f0;
+		cursor:pointer;
+		font-size:12px;
+		font-weight:bold;
+		line-height:18px;
+		margin:20px auto 0 auto;
+		width:110px;
 	}
 	#nuclearOption:hover {
-	    background: #0f0;
-	    color:#000;
+		background: #0f0;
+		color:#000;
 	}
 </style> 
-    
+	
 </head>
 <body>
-    <div id="content">
-    <div id="header"></div>
-    <div id="image_container"></div>
-    <div id="console" style="display:block;">
-	<form id="userForm">
-	    <label for="user">User:</label>
-	    <input id="userInput" name="user" type="text" value=""/>
-	    <input class="submit" type="submit"/>
-	    <div class="checkboxes">
-		<input id="scrapeData" name="data" type="checkbox" checked="checked"/>
-		<label for="data">Data</label>
-		<input id="scrapeImages" name="images" type="checkbox" checked="checked"/>
-		<label for="images">Images</label>
-	    </div>
-	    
-	    <h3>Example Users</h3>
-	    <dl>
-		<dt>61971levy</dt>
-		<dd>This user has a few stashes, but one series with multiple pages and multiple pages of issues.</dd>
-		<dt>midnighter</dt>
-		<dd>This user only has a few Nexus comics so it's a quick index for testing</dd>
-	    </dl>
-	    <div id="nuclearOption">Clear All Data</div>
-	</form>
-    </div>
-    </div>
+	<div id="content">
+		<div id="header"></div>
+		<div id="image_container"></div>
+		<div id="console" style="display:block;">
+			<form id="userForm">
+				<div class="userRow">
+					<label for="user">User:</label>
+					<input id="userInput" name="user" type="text" value=""/>
+					<input type="submit"/>
+				</div>
+				<div class="scrapeRow">
+					<input id="scrapeData" name="data" type="checkbox" checked="checked"/>
+					<label for="data">Data</label>
+					<input id="scrapeImages" name="images" type="checkbox" checked="checked"/>
+					<label for="images">Images</label>
+				</div>
+				
+				<h3>Example Users</h3>
+				<dl>
+					<dt>61971levy</dt>
+					<dd>This user has a few stashes, but one series with multiple pages and multiple pages of issues.</dd>
+					<dt>midnighter</dt>
+					<dd>This user only has a few Nexus comics so it's a quick index for testing</dd>
+				</dl>
+				<div id="nuclearOption">Clear All Data</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
