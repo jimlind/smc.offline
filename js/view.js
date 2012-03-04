@@ -107,7 +107,7 @@ $(document).ready(function(){
 	
 	function promptForScrape() {
 		$("#scrapePrompt").show();
-		$("#scrapePrompt button").live("click", function(event){
+		$("#scrapePrompt .button").live("click", function(event){
 			window.location.href = "scrape.html";
 		});
 	}
