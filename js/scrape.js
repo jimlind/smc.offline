@@ -217,6 +217,7 @@ function getStashes($url) {
 		}
 		
 		processStashAnchors();
+		return false;
 	}});
 }
 
@@ -277,6 +278,7 @@ function getSeries($data) {
 			}
 			setTimeout(processSeries, 50);
 		}
+		return false;
 	}
 	
 	processSeries();
@@ -294,6 +296,8 @@ function getIssues($data) {
 			logIt("All series found.");
 			if ($scrapeImages) {
 				$(document).trigger('buildImages');
+			} else {
+				finishUp();
 			}
 			return false;
 		}
@@ -336,7 +340,7 @@ function getIssues($data) {
 			var $kcid = $href.match(/kcid=([0-9]+)/)[1];
 			var $issue = $anchor.html();
 			$db.insertIssue($item.seriesID, $kcid, $issue, $published, $info);
-			logIt("&nbsp-&nbsp;Issue: '" + $issue + "' added." + "(" + $published + ")");
+			logIt("&nbsp-&nbsp;Issue: '" + $issue + "' added. " + "(" + $published + ")");
 			
 			// If all rows have been used, clear item so it can be reset.
 			if($rows.length == 0) {
@@ -344,6 +348,7 @@ function getIssues($data) {
 			}
 			setTimeout(processIssues, 50);
 		}
+		return false;
 	}
 	
 	processIssues();
@@ -357,6 +362,7 @@ function getImages($data) {
 		// If all data has been used and item has been emptied
 		if ($i >= $data.length && $item == null) {
 			logIt("All images found.");
+			finishUp();
 			return false;
 		}
 		
@@ -402,7 +408,9 @@ function getImages($data) {
 				return false;
 			}
 			$image.src = $scraper + "?i=" + escape($src) + "&type=jpg";
+			return false;
 		}});
+		return false;
 	}
 	processImages();
 }
@@ -420,4 +428,12 @@ function logIt($string) {
 function logImage($img) {
 	$('#image_container img').remove();
 	$('#image_container').append($img);
+}
+
+function finishUp() {
+	logIt("");
+	logIt("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+	logIt("Your scrape has completed.");
+	logIt("Close this page and view your stashes in the main view.");
+	logIt("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 }
