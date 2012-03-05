@@ -17,13 +17,6 @@ li { cursor:pointer;
 li:hover {
     text-decoration:none;
 }
-.revert, .rescrape {
-    cursor:pointer;
-    text-decoration:underline;
-}
-.revert:hover, .rescrape:hover {
-    text-decoration:none;
-}
 #issueList li {
     text-decoration:none;
     cursor:default;
@@ -51,24 +44,47 @@ li:hover {
 	color:#000;
 }
 .header {
-	height:20px;
-	overflow:none;
+	height:26px;
+	padding:5px 0;
 	position:absolute;
-		top:-25px;
+		top:-46px;
+		left:-2px;
+		right:-2px
 }
 .header p {
-	float:left;
-	margin:0;
-	padding:2px;
 	text-align:center;
+	cursor:pointer;
+	font-size:18px;
+	font-weight:bold;
+	
+	background: #fff;
+	border:1px solid #000;
+	border-radius:4px;
+	color:#000;
+	cursor:pointer;
 	width:160px;
+	margin:0;
+	padding:0;
+	position:absolute;
+		bottom:0;
+}
+.header p:active {
+	background: #000;
+	color:#fff;
+}
+.revert {
+	left:0;
+}
+.rescrape {
+	right:0;
 }
 .content {
+	border:1px solid #000;
 	border-radius:4px;
 	background:#fff;
 	position:absolute;
-		bottom:10px;
-		left:10px;
-		right:10px;
-		top:30px;
+		bottom:20px;
+		left:20px;
+		right:20px;
+		top:50px;
 }
