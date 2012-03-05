@@ -50,22 +50,22 @@ $(document).ready(function(){
 	});
 	
 	$("#stashList li").live("click", function(event){
-	var $id = $(event.target).attr("stashID");
-	var $seriesList = $("#seriesList");
-	$seriesList.children().remove();
+		var $id = $(event.target).attr("stashID");
+		var $seriesList = $("#seriesList");
+		$seriesList.children().remove();
 		$db.transaction(function ($tx) {
-		var $query = "SELECT seriesID, smcSeriesID, title, publisher FROM series WHERE stashID = " + $id;
-		$tx.executeSql($query, [], function ($tx, $results) {
-		var $length = $results.rows.length;
-			for(var $i = 0; $i < $length; $i++) {
-			var $item = $results.rows.item($i);
-			var $text = $item.title + " " + $item.publisher;
-			var $li = $('<li />').html($text).attr("seriesID", $item.seriesID).attr("smcID", $item.smcSeriesID);
-			$seriesList.append($li);
-		}
+			var $query = "SELECT seriesID, smcSeriesID, title, publisher FROM series WHERE stashID = " + $id;
+			$tx.executeSql($query, [], function ($tx, $results) {
+				var $length = $results.rows.length;
+				for(var $i = 0; $i < $length; $i++) {
+					var $item = $results.rows.item($i);
+					var $text = $item.title + " " + $item.publisher;
+					var $li = $('<li />').html($text).attr("seriesID", $item.seriesID).attr("smcID", $item.smcSeriesID);
+					$seriesList.append($li);
+				}
+			});
 		});
-	});
-	$("#showSeries").trigger("click");
+		$("#showSeries").trigger("click");
 	});
 	
 	$("#seriesList li").live("click", function(event){
@@ -107,8 +107,11 @@ $(document).ready(function(){
 	
 	function promptForScrape() {
 		$("#scrapePrompt").show();
-		$("#scrapePrompt .button").live("click", function(event){
+		$("#scrapePrompt .button").click(function(event){
 			window.location.href = "scrape.html";
 		});
 	}
+	$(".rescrape").click(function(event){
+		window.location.href = "scrape.html";
+	});
 });
