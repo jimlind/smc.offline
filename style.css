@@ -17,11 +17,11 @@ li { cursor:pointer;
 li:hover {
     text-decoration:none;
 }
-.revert {
+.revert, .rescrape {
     cursor:pointer;
     text-decoration:underline;
 }
-.revert:hover {
+.revert:hover, .rescrape:hover {
     text-decoration:none;
 }
 #issueList li {
@@ -49,4 +49,26 @@ li:hover {
 .button:hover {
 	background: #fff;
 	color:#000;
+}
+.header {
+	height:20px;
+	overflow:none;
+	position:absolute;
+		top:-25px;
+}
+.header p {
+	float:left;
+	margin:0;
+	padding:2px;
+	text-align:center;
+	width:160px;
+}
+.content {
+	border-radius:4px;
+	background:#fff;
+	position:absolute;
+		bottom:10px;
+		left:10px;
+		right:10px;
+		top:30px;
 }

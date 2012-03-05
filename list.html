@@ -3,6 +3,7 @@
 <head>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="viewport" content="width=800, user-scalable=no">
     <script type="text/javascript" src="js/zepto.min.js"></script>
     <script type="text/javascript" src="js/view.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css"/>
@@ -12,22 +13,31 @@
 		<div class="logo"></div>
     </div>
     
-    <div id="stashes" style="display:none;">
-	<h1>Stashes</h1>
-	<ul id="stashList"></ul>
+    <div id="stashes" class="content" style="display:none;">
+		<div class="header">
+			<p class="online rescrape">Rescrape It!</p>
+		</div>
+		<h1>Stashes</h1>
+		<ul id="stashList"></ul>
     </div>
  
-    <div id="series" style="display:none;">
-	<h1>Series</h1>
-	<p id="showStashes" class="revert">Show Stashes</p>
-	<ul id="seriesList"></ul>
+    <div id="series" class="content" style="display:none;">
+		<div class="header">
+			<p id="showStashes" class="revert">Show Stashes</p>
+			<p class="online rescrape">Rescrape It!</p>
+		</div>
+		<h1>Series</h1>
+		<ul id="seriesList"></ul>
     </div>
     
-    <div id="issues" style="display:none;">
-	<h1>Issues</h1>
-	<p id="showSeries" class="revert">Show Series</p>
-	<img src=""/>
-	<ul id="issueList"></ul>
+    <div id="issues" class="content" style="display:none;">
+		<div class="header">
+			<p id="showSeries" class="revert">Show Series</p>
+			<p class="online rescrape">Rescrape It!</p>
+		</div>
+		<h1>Issues</h1>
+		<img src=""/>
+		<ul id="issueList"></ul>
     </div>
     
     <div id="showIssues" style="display:none"></div>
