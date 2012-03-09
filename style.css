@@ -1,9 +1,23 @@
+.offline, .online {
+	display:none;
+}
 body {
     background:#903;
 	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.offline, .online {
-	display:none;
+button {
+	background: #000;
+	border:2px solid #fff;
+	border-radius:4px;
+	color:#fff;
+	cursor:pointer;
+	font-size:18px;
+	font-weight:bold;
+	width:110px;
+}
+button:active {
+	background: #fff;
+	color:#000;
 }
 #splash .logo {
     background:url("img/logo.png");
@@ -11,37 +25,14 @@ body {
     margin:0 auto;
     width:318px;
 }
-li { cursor:pointer;
-    text-decoration:underline;
-}
-li:hover {
-    text-decoration:none;
-}
-#issueList li {
-    text-decoration:none;
-    cursor:default;
-}
 #scrapePrompt {
     font-size:14px;
     margin:0 auto;
     text-align:center;
     width:280px;
 }
-.button {
-	background: #000;
-	border:2px solid #fff;
-	border-radius:4px;
-	color:#fff;
-	cursor:pointer;
-	font-size:12px;
-	font-weight:bold;
-	line-height:18px;
-	margin:20px auto 0 auto;
-	width:110px;
-}
-.button:hover {
-	background: #fff;
-	color:#000;
+#scrapePrompt button {
+	margin:6px auto 0;
 }
 .header {
 	height:26px;
@@ -51,24 +42,16 @@ li:hover {
 		left:-2px;
 		right:-2px
 }
-.header p {
-	text-align:center;
-	cursor:pointer;
-	font-size:18px;
-	font-weight:bold;
-	
+.header button {	
 	background: #fff;
 	border:1px solid #000;
-	border-radius:4px;
 	color:#000;
-	cursor:pointer;
-	width:160px;
 	margin:0;
-	padding:0;
 	position:absolute;
 		bottom:0;
+	width:160px;
 }
-.header p:active {
+.header button:active {
 	background: #000;
 	color:#fff;
 }
@@ -87,4 +70,23 @@ li:hover {
 		left:20px;
 		right:20px;
 		top:50px;
+}
+.content h1 {
+	font-size:18px;
+	font-weight:bold;
+	letter-spacing:4px;
+	margin:0;
+	padding:8px;
+	text-align:center;
+	text-transform: uppercase;
+}
+li { cursor:pointer;
+    text-decoration:underline;
+}
+li:hover {
+    text-decoration:none;
+}
+#issueList li {
+    text-decoration:none;
+    cursor:default;
 }

@@ -83,7 +83,7 @@ $(document).ready(function(){
 			$h1.html("No Issues Found");
 			return false;
 		}
-		$h1.html("Issues of " + $results.rows.item(0).title);
+		$h1.html($results.rows.item(0).title);
 		var $length = $results.rows.length;
 		for(var $i = 0; $i < $length; $i++) {
 			var $item = $results.rows.item($i);
@@ -107,7 +107,7 @@ $(document).ready(function(){
 	
 	function promptForScrape() {
 		$("#scrapePrompt").show();
-		$("#scrapePrompt .button").click(function(event){
+		$("#scrapePrompt button").click(function(event){
 			window.location.href = "scrape.html";
 		});
 	}
