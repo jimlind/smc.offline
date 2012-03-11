@@ -92,10 +92,9 @@ ul {
 		top:40px;
 }
 li {
-	background-image:-webkit-linear-gradient(top, #EEE 0%, #DDD 50%, #EEE 100%);
+	background:#DDD;
 	border:1px solid #CCC;
 	border-bottom:1px solid #999;
-	border-radius:4px;
 	box-shadow:inset 0 1px 0 0 #FFF;
 	cursor:pointer;
 	font-size:16px;
@@ -146,8 +145,7 @@ li:active {
 	text-shadow:none;
 }
 #issueList li .number {
-	background-image:-webkit-linear-gradient(right, #CCC 0%, #FFF 100%);
-	border-radius:4px;
+	background:#CCC;
 	color:#903;
 	float:left;
 	font-size:24px;
