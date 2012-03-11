@@ -2,11 +2,11 @@
 	display:none;
 }
 body {
-    background:#903;
+	background:#903;
 	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 button {
-	background: #000;
+	background:#000;
 	border:2px solid #fff;
 	border-radius:4px;
 	color:#fff;
@@ -16,20 +16,20 @@ button {
 	width:140px;
 }
 button:active {
-	background: #fff;
+	background:#fff;
 	color:#000;
 }
 #splash .logo {
-    background:url("img/logo.png");
-    height:305px;
-    margin:0 auto;
-    width:318px;
+	background:url("img/logo.png");
+	height:305px;
+	margin:0 auto;
+	width:318px;
 }
 #scrapePrompt {
-    font-size:14px;
-    margin:0 auto;
-    text-align:center;
-    width:280px;
+	font-size:14px;
+	margin:0 auto;
+	text-align:center;
+	width:280px;
 }
 #scrapePrompt button {
 	margin:6px auto 0;
@@ -38,12 +38,12 @@ button:active {
 	height:26px;
 	padding:5px 0;
 	position:absolute;
-		top:-46px;
 		left:-2px;
-		right:-2px
+		right:-2px;
+		top:-46px;
 }
 .header button {	
-	background: #fff;
+	background:#fff;
 	border:1px solid #000;
 	color:#000;
 	margin:0;
@@ -52,7 +52,7 @@ button:active {
 	width:180px;
 }
 .header button:active {
-	background: #000;
+	background:#000;
 	color:#fff;
 }
 .revert {
@@ -78,49 +78,37 @@ button:active {
 	margin:0;
 	padding:8px;
 	text-align:center;
-	text-transform: uppercase;
+	text-transform:uppercase;
 }
 ul {
 	list-style:none;
 	margin:0;
+	overflow:auto;
 	padding:0;
-	overflow: auto;
-	
 	position:absolute;
-	bottom:20px;
-	top:40px;
-	right:10px;
-	left:10px;
-}
-Xli {
-	background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#EEE), to(#EEE), color-stop(.6,#DDD));
-    box-shadow: inset 0 1px 0 0 #b1b9cb;
-	border:1px solid #CCC;
-	border-radius:4px;
-	cursor:pointer;
-
-	box-shadow:inset 0 1px 0 0 #b1b9cb;
+		bottom:20px;
+		left:10px;
+		right:10px;
+		top:40px;
 }
 li {
-  background-color:red;
-  background-image: -webkit-linear-gradient(top, #eee 0%, #ddd 50%, #ddd 50%, #eee 100%);
-  border: 1px solid #CCC;
-  border-bottom: 1px solid #999;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 0 0 #fff;
-  font-size:16px;
-  font-weight:bold;
-  text-shadow: 1px 2px 3px #BBB;
-  cursor:pointer;
-  margin:0 10px 10px 10px;
-    padding:8px 20px;
+	background-image:-webkit-linear-gradient(top, #eee 0%, #ddd 50%, #eee 100%);
+	border:1px solid #CCC;
+	border-bottom:1px solid #999;
+	border-radius:4px;
+	box-shadow:inset 0 1px 0 0 #fff;
+	cursor:pointer;
+	font-size:16px;
+	font-weight:bold;
+	text-shadow:1px 2px 3px #BBB;
+	margin:0 10px 10px 10px;
+	padding:8px 20px;
 }
 li:active {
 	background:#ddd;
+	border:1px solid #aaa;
+	box-shadow:inset 0 0 12px 0 #bbb;
 	text-shadow:none;
-	 box-shadow: inset 0 0 12px 0 #bbb;
-	 vertical-align:20px;
-	 border: 1px solid #aaa;
 }
 #series li strong {
 	display:block;
@@ -141,18 +129,16 @@ li:active {
 #issues ul {
 	margin:0 0 0 120px;
 }
-
 #issueList li {
-    text-decoration:none;
-    cursor:default;
-		background:none;
-	box-shadow:none;
+	background:none;
 	border:none;
-	text-shadow:none;
+	border-radius:0;
+	box-shadow:none;
+	cursor:default;
 	padding:0;
 	overflow:hidden;
-	border-radius:0;
-	
+	text-decoration:none;
+	text-shadow:none;
 }
 #issueList li:active {
 	background:none;
@@ -160,15 +146,15 @@ li:active {
 	text-shadow:none;
 }
 #issueList li .number {
-	border-radius: 4px;
+	background-image:-webkit-linear-gradient(right, #CCC 0%, #FFF 100%);
+	border-radius:4px;
 	color:#903;
 	float:left;
-	width:80px;
-	text-align:right;
 	font-size:24px;
 	font-weight:bold;
 	padding:0 4px 0 0;
-	background-image: -webkit-linear-gradient(right, #CCC 0%, #FFF 100%);
+	text-align:right;
+	width:80px;
 }
 #issueList li .pub {
 	font-size:12px;
@@ -179,8 +165,8 @@ li:active {
 }
 #issueList li .publisher {
 	color:#CCC;
-	padding:0 0 0 10px;
 	display:inline;
+	padding:0 0 0 10px;
 	text-transform:uppercase;
 }
 #issueList li .info {
