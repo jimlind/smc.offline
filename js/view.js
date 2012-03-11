@@ -59,7 +59,7 @@ $(document).ready(function(){
 				var $length = $results.rows.length;
 				for(var $i = 0; $i < $length; $i++) {
 					var $item = $results.rows.item($i);
-					var $text = $item.title + " " + $item.publisher;
+					var $text = "<strong>" + $item.title + "</strong><em>" + $item.publisher + "</em>";
 					var $li = $('<li />').html($text).attr("seriesID", $item.seriesID).attr("smcID", $item.smcSeriesID);
 					$seriesList.append($li);
 				}
@@ -69,8 +69,10 @@ $(document).ready(function(){
 	});
 	
 	$("#seriesList li").live("click", function(event){
-	var $id = $(event.target).attr("seriesID");
-	var $smc = $(event.target).attr("smcID");
+	var $target = $(event.target);
+	if (!$target.is("li")) $target = $target.parent();
+	var $id = $target.attr("seriesID");
+	var $smc = $target.attr("smcID");
 	var $issueList = $("#issueList");
 	var $h1 = $("#issues").find("h1");
 	var $img = $("#issues").find("img");
@@ -87,9 +89,13 @@ $(document).ready(function(){
 		var $length = $results.rows.length;
 		for(var $i = 0; $i < $length; $i++) {
 			var $item = $results.rows.item($i);
-			var $text = $item.issueNumber + " :: " + $item.published;
+			var $text = "<div class='number'>" + $item.issueNumber + "</div>";
+			$text += "<div class='pub'>";
+			$text += "<div class='published'>" + $item.published + "</div>";
+			$text += "<div class='publisher'>" + $item.publisher + "</div>";
+			$text += "</div>";
 			if ($item.info != "") {
-			$text += " :: " + $item.info;
+				$text += "<div class='info'>" + $item.info + "</div>";
 			}
 			var $li = $('<li />').html($text);
 			$issueList.append($li);
