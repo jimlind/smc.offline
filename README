@@ -1,1 +1,31 @@
 Offline Comic Viewer for StashMyComics
+Developed by @JimLindForPope
+
+INTRODUCTION
+
+Building an app that works in all the platforms is a fools game.
+Here is an HTML5 app that keeps everything in a format that'll work great when
+your device is offline as well.
+
+INSTALLATION
+
+There are two bits that keep this from being a complete JS solution.
+#1 - XSS browser protection
+	JS can't download files from a different server
+#2 - MIME types
+	appcache files need to be served as text/cache-manifest MIME type
+
+To solve the cross-site scripting problem you need to have a file on the same
+machine that can download files from StashMyComics for you.  I built one in PHP
+that is included here as 'smcScrape.php' so just keep that intact for your
+properly configured LAMP stack server.
+
+To solve the MIME type problem you need to setup your server with a slightly
+different configuration.  If your LAMP stack server is properly configured the
+included '.htaccess' file will take care of it.  Without that file the app won't
+work offline.
+
+TESTED
+
+I've tested this on the latest Chrome and an iPad since that's what I use.  If
+you have another browser/device and want support feel free to fork my repo.

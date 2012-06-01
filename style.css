@@ -1,0 +1,165 @@
+.offline, .online {
+	display:none;
+}
+body {
+	background:#903;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+button {
+	background:#000;
+	border:2px solid #FFF;
+	border-radius:4px;
+	color:#FFF;
+	cursor:pointer;
+	font-size:18px;
+	font-weight:bold;
+	width:140px;
+}
+button:active {
+	background:#FFF;
+	color:#000;
+}
+#splash .logo {
+	background:url("img/logo.png");
+	height:305px;
+	margin:0 auto;
+	width:318px;
+}
+#scrapePrompt {
+	font-size:14px;
+	margin:0 auto;
+	text-align:center;
+	width:280px;
+}
+#scrapePrompt button {
+	margin:6px auto 0;
+}
+.header {
+	height:26px;
+	padding:5px 0;
+	position:absolute;
+		left:-2px;
+		right:-2px;
+		top:-46px;
+}
+.header button {	
+	background:#FFF;
+	border:1px solid #000;
+	color:#000;
+	margin:0;
+	position:absolute;
+		bottom:0;
+	width:180px;
+}
+.header button:active {
+	background:#000;
+	color:#FFF;
+}
+.revert {
+	left:0;
+}
+.rescrape {
+	right:0;
+}
+.content {
+	border:1px solid #000;
+	border-radius:4px;
+	background:#FFF;
+	position:absolute;
+		bottom:20px;
+		left:20px;
+		right:20px;
+		top:50px;
+}
+.content h1 {
+	font-size:18px;
+	font-weight:bold;
+	letter-spacing:4px;
+	margin:0;
+	padding:8px;
+	text-align:center;
+	text-transform:uppercase;
+}
+ul {
+	list-style:none;
+	margin:0;
+	overflow:auto;
+	padding:0;
+	position:absolute;
+		bottom:20px;
+		left:10px;
+		right:10px;
+		top:40px;
+}
+li {
+	background:#DDD;
+	border:1px solid #CCC;
+	cursor:pointer;
+	font-size:16px;
+	font-weight:bold;
+	margin:0 50px 10px 50px;
+	padding:8px 20px;
+}
+li:active {
+	background:#DDD;
+	border:1px solid #AAA;
+}
+#series li strong {
+	display:block;
+}
+#series li em {
+	color:#666;
+	display:block;
+	font-size:10px;
+	font-weight:normal;
+	font-style:normal;
+	padding:0 0 0 10px;
+}
+#issues img {
+	position:absolute;
+		left:20px;
+		top:40px;
+}
+#issues ul {
+	margin:0 0 0 120px;
+}
+#issueList li {
+	background:none;
+	border:none;
+	cursor:default;
+	padding:0;
+	overflow:hidden;
+	text-decoration:none;
+}
+#issueList li:active {
+	background:none;
+	box-shadow:none;
+}
+#issueList li .number {
+	background:#CCC;
+	color:#903;
+	float:left;
+	font-size:24px;
+	font-weight:bold;
+	padding:0 4px 0 0;
+	text-align:right;
+	width:80px;
+}
+#issueList li .pub {
+	font-size:12px;
+	margin:0 0 0 100px;
+}
+#issueList li .published {
+	display:inline;
+}
+#issueList li .publisher {
+	color:#CCC;
+	display:inline;
+	padding:0 0 0 10px;
+	text-transform:uppercase;
+}
+#issueList li .info {
+	color:#903;
+	font-size:14px;
+	margin:4px 0 4px 100px;
+}
