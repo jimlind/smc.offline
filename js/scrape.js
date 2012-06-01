@@ -210,8 +210,8 @@ function getSeries($data) {
 	var $nextAnchor = new Array();
 	
 	function processSeries() {		
-		// If all data has been used and item has been emptied
-		if ($i >= $data.length && $item == null) {
+		// If all data has been used, item has been emptied, and no "next" button		
+		if ($i >= $data.length && $item == null && $nextAnchor.length == 0) {
 			logIt("All series found.");
 			$(document).trigger('buildIssues');
 			return false;
